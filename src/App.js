@@ -11,6 +11,7 @@ class App extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.setAnswer = this.setAnswer.bind(this);
   }
 
   handleChange(event) {
@@ -20,17 +21,30 @@ class App extends React.Component {
   }
 
   handleClick(event) {
-    console.log('clicked');
     let data = { equation: this.state.value };
 
     axios.post(`http://localhost:4567/`, data)
       .then(res => {
-        console.log(res['data']);
-        this.setState({solution: res['data']['roots']['roots_amount']});
-        console.log(this.state.solution)
+        this.setAnswer(res['data']);
+      })
+      .catch(error => {
+        console.log('МАША ВСЕ СЛОМАЛОСЬ');
       });
 
     event.preventDefault();
+  }
+
+  setAnswer(data) {
+    if (data['error'] === true) {
+      this.setState({
+        solution: 'This is not equation'
+      });
+    } else {
+      let answer = data['roots']['roots_amount'] === 0 ? 'no roots' : data['roots']['solution'].join(', ');
+      this.setState({
+        solution: answer
+      });
+    }
   }
 
   render() {
