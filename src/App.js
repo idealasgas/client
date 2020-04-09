@@ -26,9 +26,11 @@ class App extends React.Component {
     axios.post(`http://localhost:4567/`, data)
       .then(res => {
         this.setAnswer(res['data']);
+        console.log(res['data'])
       })
       .catch(error => {
         console.log('МАША ВСЕ СЛОМАЛОСЬ');
+        console.log(error)
       });
 
     event.preventDefault();
@@ -40,7 +42,7 @@ class App extends React.Component {
         solution: 'This is not equation'
       });
     } else {
-      let answer = data['roots']['roots_amount'] === 0 ? 'no roots' : data['roots']['solution'].join(', ');
+      let answer = data['roots_amount'] === 0 ? 'no roots' : data['solution'].join(', ');
       this.setState({
         solution: answer
       });
