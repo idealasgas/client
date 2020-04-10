@@ -54,7 +54,7 @@ class App extends React.Component {
       <div className="App">
         <input placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
         <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
-        <div className="Solution" data-testid="answer">{this.state.solution}{process.env.REACT_APP_API_URL}</div>
+        <div className="Solution" data-testid="answer">{this.state.solution}</div>
       </div>
     );
   }
