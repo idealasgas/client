@@ -7,7 +7,7 @@ import { runInThisContext } from 'vm';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {solution: 'а', value: ''};
+    this.state = {solution: '', value: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -52,9 +52,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <input placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} />
-        <button onClick={this.handleClick} className="Button">Solve</button>
-        <div className="Solution">{this.state.solution}</div>
+        <input placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
+        <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
+        <div className="Solution" data-testid="answer">{this.state.solution}</div>
       </div>
     );
   }

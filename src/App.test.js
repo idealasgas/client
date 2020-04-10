@@ -2,12 +2,23 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+test('renders input field', () => {
+  const { getByTestId } = render(<App />);
+  const textInput = getByTestId('input-text');
 
-test('two plus two is four', () => {
-  expect(2 + 2).toBe(4);
+  expect(textInput).toHaveValue('');
+});
+
+test('renders button', () => {
+  const { getByTestId } = render(<App />);
+  const button = getByTestId('button');
+
+  expect(button).toBeEnabled();
+});
+
+test('renders empty div for answer', () => {
+  const { getByTestId } = render(<App />);
+  const answer = getByTestId('answer');
+
+  expect(answer).toHaveTextContent('');
 });
