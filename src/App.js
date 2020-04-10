@@ -23,7 +23,7 @@ class App extends React.Component {
   handleClick(event) {
     let data = { equation: this.state.value };
 
-    axios.post(`http://localhost:4567/`, data)
+    axios.post(`http://localhost:4567/`, data, {headers: { Authorization: "Basic " + process.env.REACT_APP_API_KEY }})
       .then(res => {
         this.setAnswer(res['data']);
         console.log(res['data'])
