@@ -50,9 +50,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <input placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
+        <input className='Input' placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
         <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
         <div className="Solution" data-testid="answer">{this.state.solution}</div>
+        <div className="Disclaimer">
+          Use to solve quadratic/linear equations <br/>
+          ax^2+bx+c=0 - quadratic <br/>
+          ax+b=c and many others - linear
+        </div>
       </div>
     );
   }
