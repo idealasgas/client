@@ -5,7 +5,7 @@ import './App.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {solution: '', value: ''};
+    this.state = {solution: '', value: '', loading: false};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -21,15 +21,16 @@ class App extends React.Component {
   handleClick(event) {
     let data = { equation: this.state.value };
 
-    axios.post(process.env.REACT_APP_API_URL, data, {headers: { Authorization: "Basic " + process.env.REACT_APP_API_KEY }})
+    this.setState({loading: true}, () => {
+      axios.post(process.env.REACT_APP_API_URL, data, {headers: { Authorization: "Basic " + process.env.REACT_APP_API_KEY }})
       .then(res => {
+        this.setState({loading: false});
         this.setAnswer(res['data']);
-        console.log(res['data'])
       })
       .catch(error => {
-        console.log('МАША ВСЕ СЛОМАЛОСЬ');
-        console.log(error)
       });
+    });
+
 
     event.preventDefault();
   }
@@ -52,15 +53,24 @@ class App extends React.Component {
       <div className="App">
         <input className='Input' placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
         <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
-        <div className="Solution" data-testid="answer">{this.state.solution}</div>
-        <div className="Disclaimer">
+        {this.state.loading ? <Loading /> : <div className="Solution" data-testid="answer">{this.state.solution}</div>}
+        <Disclaimer />
+      </div>
+    );
+  }
+}
+
+function Loading() {
+  return <div className="Loader">Loading...</div>;
+}
+
+function Disclaimer() {
+  return(<div className="Disclaimer">
           Use to solve quadratic/linear equations <br/>
           ax^2+bx+c=0 - quadratic <br/>
           ax+b=c and many others - linear
         </div>
-      </div>
-    );
-  }
+  );
 }
 
 export default App;
