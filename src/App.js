@@ -26,8 +26,6 @@ class App extends React.Component {
       .then(res => {
         this.setState({loading: false});
         this.setAnswer(res['data']);
-      })
-      .catch(error => {
       });
     });
 
@@ -55,7 +53,7 @@ class App extends React.Component {
           <input className='Input' placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
           <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
         </div>
-        {this.state.loading ? <Loading /> : <div className="Solution" data-testid="answer">{this.state.solution}</div>}
+        {this.state.loading ? <Loading /> : <Solution solution={this.state.solution}/>}
         <Disclaimer />
       </div>
     );
@@ -64,6 +62,10 @@ class App extends React.Component {
 
 function Loading() {
   return <div className="Loader">Loading...</div>;
+}
+
+function Solution(props) {
+  return <div className="Solution" data-testid="answer">{props.solution}</div>;
 }
 
 function Disclaimer() {
