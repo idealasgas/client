@@ -51,8 +51,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <input className='Input' placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
-        <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
+        <div>
+          <input className='Input' placeholder="Enter equation" value={this.state.value} type="text" onChange={this.handleChange} data-testid="input-text" />
+          <button onClick={this.handleClick} data-testid="button" className="Button">Solve</button>
+        </div>
         {this.state.loading ? <Loading /> : <div className="Solution" data-testid="answer">{this.state.solution}</div>}
         <Disclaimer />
       </div>
